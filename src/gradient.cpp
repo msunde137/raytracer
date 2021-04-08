@@ -17,5 +17,13 @@ void ray_trace(ppm_image& image)
    int height = image.height();
    int width = image.width();
 
+   for (int i = 0; i < height; i++)
+   {
+	   for (int j = 0; j < width; j++)
+	   {
+			
+	   }
+   }
+
    image.save("gradient.png");
 }

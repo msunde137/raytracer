@@ -79,7 +79,10 @@ set(SOURCES
     src/AGLM.cpp
     src/ppm_image.h
     src/ppm_image.cpp
-    src/main.cpp)
+    src/sphere.cpp
+    src/material.cpp
+    src/triangle.cpp
+    src/plane.cpp)
 
 set(RT_SOURCES
     src/hittable.h
@@ -92,25 +95,25 @@ set(RT_SOURCES
     src/triangle.h
     src/sphere.h)
 
-add_executable(gradient src/gradient.cpp src/Ray.h ${SOURCES})
+add_executable(gradient src/gradient.cpp src/Ray.h src/main.cpp ${SOURCES})
 target_link_libraries(gradient ${CORE})
 
-add_executable(silhouette src/silhouette.cpp src/Ray.h ${SOURCES})
+add_executable(silhouette src/silhouette.cpp src/Ray.h src/main.cpp ${SOURCES})
 target_link_libraries(silhouette ${CORE})
 
-add_executable(normals src/normals.cpp src/Ray.h ${SOURCES})
+add_executable(normals src/normals.cpp src/main.cpp src/Ray.h ${SOURCES})
 target_link_libraries(normals ${CORE})
 
-add_executable(basic src/basic.cpp ${RT_SOURCES} ${SOURCES})
+add_executable(basic src/basic.cpp src/main.cpp ${RT_SOURCES} ${SOURCES})
 target_link_libraries(basic ${CORE})
 
-add_executable(intesection_tests src/intesection_tests.cpp src/AGLM.h src/AGLM.cpp ${RT_SOURCES}) 
+add_executable(intesection_tests src/intesection_tests.cpp ${SOURCES} ${RT_SOURCES}) 
 target_link_libraries(intesection_tests ${CORE})
 
-add_executable(raytracer src/raytracer.cpp ${RT_SOURCES} ${SOURCES})
+add_executable(raytracer src/raytracer.cpp src/main.cpp ${RT_SOURCES} ${SOURCES})
 target_link_libraries(raytracer ${CORE})
 
-add_executable(materials src/materials.cpp ${RT_SOURCES} ${SOURCES})
+add_executable(materials src/materials.cpp src/main.cpp ${RT_SOURCES} ${SOURCES})
 target_link_libraries(materials ${CORE})
 
 

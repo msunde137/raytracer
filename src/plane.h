@@ -10,15 +10,11 @@ public:
    plane(const glm::point3& p, const glm::vec3& normal, 
       std::shared_ptr<material> m) : a(p), n(normal), mat_ptr(m) {};
 
-   virtual bool hit(const ray& r, hit_record& rec) const override
-   {
-      // todo
-      return false;
-   }
+   virtual bool hit(const ray& r, hit_record& rec) const override;
 
 public:
-   glm::vec3 a;
-   glm::vec3 n;
+   glm::vec3 a, n;
+   float u, v; // bounds
    std::shared_ptr<material> mat_ptr;
 };
 

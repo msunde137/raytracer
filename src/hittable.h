@@ -17,8 +17,9 @@ struct hit_record {
    std::shared_ptr<material> mat_ptr = 0; // save material of hit object
 
    inline void set_face_normal(const ray& r, const glm::vec3& outward_normal) {
-      front_face = glm::dot(r.direction(), outward_normal) < 0;
-      normal = front_face ? outward_normal :-outward_normal;
+      front_face = glm::dot(glm::normalize(r.direction()), outward_normal) < 0;
+      //normal = front_face ? outward_normal :-outward_normal;
+       normal = outward_normal;
    }
 
    inline std::string str() const {
