@@ -61,8 +61,8 @@ void ray_trace(ppm_image& image)
    int height = image.height();
    int width = image.width();
    float aspect = width / float(height);
-   int samples_per_pixel = 2; // higher => more anti-aliasing
-   int max_depth = 6; // higher => less shadow acne
+   int samples_per_pixel = 3; // higher => more anti-aliasing
+   int max_depth = 3; // higher => less shadow acne
 
    // World
    shared_ptr<material> gray = make_shared<lambertian>(color(0.5f));
@@ -82,19 +82,19 @@ void ray_trace(ppm_image& image)
    shared_ptr<smoke> smoke_test = make_shared<smoke>(glm::vec3(.5));
 
    hittable_list world;
-   //world.add(make_shared<sphere>(point3(.5, 0, -1), 0.5f, glass_test));
-   world.add(make_shared<sphere>(point3(-.2, 0, -1), 0.5f, smoke_test));
+   world.add(make_shared<sphere>(point3(.7, 0, -1), 0.5f, metal_test));
+   world.add(make_shared<sphere>(point3(-.5, 0, -1), 0.5f, glass_test));
    world.add(make_shared<triangle>(
        glm::vec3(1,  -0.5, -1),
        glm::vec3(0, -0.5,  -1),
        glm::vec3(0,   0.5, -1),
-       smoke_test));
+       metal_test));
    //world.add(make_shared<triangle>(
        //glm::vec3(-10, -.5, 0),
        //glm::vec3(10,  -.5, 0),
        //glm::vec3(0,   -.5, -10),
        //asdf));
-   world.add(make_shared<plane>(glm::vec3(0, -.5, 0), glm::vec3(0, 1, 0), gray));
+   world.add(make_shared<plane>(glm::vec3(0, -.5, 0), glm::vec3(0, 1, 0), asdf));
    //world.add(make_shared<sphere>(point3(0, -100.5, -1), 100, asdf));
    
    // Camera
@@ -123,5 +123,5 @@ void ray_trace(ppm_image& image)
       }
    }
 
-   image.save("../res/basic.png");
+   image.save("../res/reflections1.png");
 }
