@@ -1,3 +1,6 @@
+![basic](https://user-images.githubusercontent.com/54864515/113961779-91de2000-97f4-11eb-8b31-c580af8ac2cb.png)
+![reflections](https://user-images.githubusercontent.com/54864515/113961780-9276b680-97f4-11eb-97e2-f6d5c86bed04.png)
+![reflections1](https://user-images.githubusercontent.com/54864515/113961781-9276b680-97f4-11eb-94fd-f3714b88ddb6.png)
 # raytracer
 
 Implements a raytracer based on the book [_Ray Tracing in One Weekend_](https://raytracing.github.io/books/RayTracingInOneWeekend.html). 
