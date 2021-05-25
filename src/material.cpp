@@ -90,28 +90,29 @@ bool smoke::scatter(const ray& r_in, const hit_record& rec, glm::color& attenuat
 {
     float len = glm::length(r_in.direction());
     glm::vec3 r_dir = r_in.direction() / len;
-    glm::vec3 fuzz_vec = random_hemisphere(r_dir) * 1.0f;
-    glm::vec3 dir = glm::normalize(r_dir);
+    float a = glm::length(glm::cross(rec.normal, r_dir));
     if (rec.front_face)
     {
         attenuation = glm::vec3(1);
-        scattered.orig = rec.p;
+        scattered.orig = rec.p + r_dir * 0.0001f;
         scattered.dir = r_dir;
     }
     else
     {
-        //if (glm::length(r_in.direction() * rec.t) < .5f)
-        //{
-        //    attenuation = color;
-        //    scattered.orig = rec.p;
-        //    scattered.dir = r_dir;
-        //}
-        //else
-        //{
-        //}
-        attenuation = glm::vec3(0);
-        scattered.orig = rec.p;
-        scattered.dir = r_in.direction();
+        if (glm::length(r_in.direction() * rec.t) < .01f)
+        {
+            attenuation = glm::vec3(1);
+            scattered.orig = rec.p;
+            scattered.dir = r_dir;
+        }
+        else
+        {
+            glm::vec3 fuzz_vec = random_hemisphere(r_dir) * .10f;
+            glm::vec3 dir = glm::normalize(r_dir);
+            attenuation = color;
+            scattered.orig = r_in.origin() + dir * .08f;
+            scattered.dir = dir;
+        }
     }
     return true;
 }

@@ -33,7 +33,7 @@ void check(bool val, const std::string& message, const hit_record& hit, const ra
       cout << hit.str() << endl;
       cout << ray.str() << endl;
    }
-   assert(val);
+   //assert(val);
 }
 
 void test_sphere(const sphere& s, const ray& r, bool hits, const hit_record& desired) {

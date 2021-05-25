@@ -62,7 +62,7 @@ void ray_trace(ppm_image& image)
    int width = image.width();
    float aspect = width / float(height);
    int samples_per_pixel = 3; // higher => more anti-aliasing
-   int max_depth = 3; // higher => less shadow acne
+   int max_depth = 20; // higher => less shadow acne
 
    // World
    shared_ptr<material> gray = make_shared<lambertian>(color(0.5f));
@@ -79,16 +79,16 @@ void ray_trace(ppm_image& image)
 
    shared_ptr<material> metal_test = make_shared<metal>(glm::vec3(1, .1, .1), 0.1);
    shared_ptr<dielectric> glass_test = make_shared<dielectric>(0.9995);
-   shared_ptr<smoke> smoke_test = make_shared<smoke>(glm::vec3(.5));
+   shared_ptr<smoke> smoke_test = make_shared<smoke>(glm::vec3(.99));
 
    hittable_list world;
-   world.add(make_shared<sphere>(point3(.7, 0, -1), 0.5f, metal_test));
-   world.add(make_shared<sphere>(point3(-.5, 0, -1), 0.5f, glass_test));
+   //world.add(make_shared<sphere>(point3(.7, 0, -1), 0.5f, metal_test));
+   world.add(make_shared<sphere>(point3(-.5, 0, -1), 0.5f, smoke_test));
    world.add(make_shared<triangle>(
-       glm::vec3(1,  -0.5, -1),
        glm::vec3(0, -0.5,  -1),
+       glm::vec3(1,  -0.5, -1),
        glm::vec3(0,   0.5, -1),
-       metal_test));
+       matte_test));
    //world.add(make_shared<triangle>(
        //glm::vec3(-10, -.5, 0),
        //glm::vec3(10,  -.5, 0),
