@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "material.h"
 #include "hittable_list.h"
+#include "plane.h"
 
 using namespace glm;
 using namespace agl;
@@ -70,18 +71,17 @@ void ray_trace(ppm_image& image)
 
    // World
    shared_ptr<material> gray = make_shared<lambertian>(color(0.5f));
-   shared_ptr<material> matteGreen = make_shared<lambertian>(color(0, 0.5f, 0));
+   shared_ptr<material> matteGreen = make_shared<matte>(color(0, 0.5f, 0));
    shared_ptr<material> metalRed = make_shared<metal>(color(1, 0, 0), 0.3f);
    shared_ptr<material> glass = make_shared<dielectric>(1.5f);
    shared_ptr<material> phongDefault = make_shared<phong>(camera_pos);
 
    hittable_list world;
    world.add(make_shared<sphere>(point3(-2.25, 0, -1), 0.5f, phongDefault));
-   world.add(make_shared<sphere>(point3(-0.75, 0, -1), 0.5f, glass));
+   world.add(make_shared<sphere>(point3(-0.5, 0, -1), 0.5f, glass));
    world.add(make_shared<sphere>(point3(2.25, 0, -1), 0.5f, metalRed));
-   world.add(make_shared<sphere>(point3(0.75, 0, -1), 0.5f, matteGreen));
-   world.add(make_shared<sphere>(point3(0, -100.5, -1), 100, gray));
-
+   world.add(make_shared<sphere>(point3(0, 0, -1.5), 0.5f, matteGreen));
+   world.add(make_shared<plane>(point3(0, -.5, 0), point3(0, 1, 0), gray));
 
    // Ray trace
    for (int j = 0; j < height; j++)
